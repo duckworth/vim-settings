@@ -4,7 +4,8 @@
 " Font
 set guifont=Monaco:h12.00
 
-colorscheme xoria256
+"colorscheme xoria256
+colorscheme solarized
 
 " No audible bell
 set vb
