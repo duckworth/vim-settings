@@ -91,10 +91,12 @@ map <leader>tm :tabmove
 " For the MakeGreen plugin and Ruby RSpec. Uncomment to use.
 autocmd BufNewFile,BufRead *_spec.rb compiler rspec
 
-map <F2> :NERDTreeToggle<CR>
 
 "NERDTree settings
 let g:NERDTreeWinPos = "left"
+map <leader>nf :NERDTreeFind<cr>
+map <F2> :NERDTreeToggle<CR>
+
 let mapleader = ","
 
 " dbext settings
@@ -111,4 +113,13 @@ set listchars=tab:>-,trail:-
 
 au BufRead,BufNewFile *.thrift set filetype=thrift
 au! Syntax thrift source ~/.vim/bundle/thrift/syntax/thrift.vim
+
+if has("unix")
+  let s:uname = system("uname")
+  if s:uname == "Darwin\n"
+    " Do Mac stuff here
+		let g:gist_clip_command = 'pbcopy'
+  endif
+endif
+
 
