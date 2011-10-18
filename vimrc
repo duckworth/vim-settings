@@ -137,8 +137,9 @@ cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 au BufNewFile,BufRead *.json set ft=javascript
 
 " fuzzy finder
-nmap <leader>o :FufFile<CR>  
-nmap <leader>f :FufFileWithCurrentBufferDir<CR>
+nmap <leader>f :FufFile<CR>  
+nmap <leader>o :FufCoverageFile<CR>
+nmap <leader>d :FufFileWithCurrentBufferDir<CR>
 nmap <leader>b :FufBuffer<CR>
 nmap <leader>t :FufTaggedFile<CR>
 noremap <leader>j :FufLine<CR>
