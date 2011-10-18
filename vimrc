@@ -61,10 +61,11 @@ let g:solarized_degrade=1
 set background=dark
 colorscheme solarized
 
-
+"map leader to comma
+let mapleader = ","
 
 " Tab mappings.
-map <leader>tt :tabnew<cr>
+"map <leader>tt :tabnew<cr>
 map <leader>te :tabedit
 map <leader>tc :tabclose<cr>
 map <leader>to :tabonly<cr>
@@ -100,8 +101,9 @@ autocmd BufNewFile,BufRead *_spec.rb compiler rspec
 let g:NERDTreeWinPos = "left"
 map <leader>nf :NERDTreeFind<cr>
 map <F2> :NERDTreeToggle<CR>
+"map <Leader>n :NERDTreeToggle<CR>
 
-let mapleader = ","
+nmap <silent> <leader>n :silent :nohlsearch<CR>
 
 " dbext settings
 let g:dbext_default_type   = 'MYSQL'
@@ -118,12 +120,25 @@ set listchars=tab:>-,trail:-
 au BufRead,BufNewFile *.thrift set filetype=thrift
 au! Syntax thrift source ~/.vim/bundle/thrift/syntax/thrift.vim
 
-if has("unix")
-  let s:uname = system("uname")
-  if s:uname == "Darwin\n"
-    " Do Mac stuff here
-		let g:gist_clip_command = 'pbcopy'
-  endif
+" gist-vim defaults
+if has("mac")
+  let g:gist_clip_command = 'pbcopy'
+elseif has("unix")
+  let g:gist_clip_command = 'xclip -selection clipboard'
 endif
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
 
+" Inserts the path of the currently edited file into a command
+" Command mode: Ctrl+P
+cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 
+" add json syntax highlighting
+au BufNewFile,BufRead *.json set ft=javascript
+
+" fuzzy finder
+nmap <leader>o :FufFile<CR>  
+nmap <leader>f :FufFileWithCurrentBufferDir<CR>
+nmap <leader>b :FufBuffer<CR>
+nmap <leader>t :FufTaggedFile<CR>
+noremap <leader>j :FufLine<CR>

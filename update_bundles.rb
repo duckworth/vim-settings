@@ -1,9 +1,11 @@
 #!/usr/bin/env ruby
 
 git_bundles = [ 
-  "git://github.com/astashov/vim-ruby-debugger.git",
+  #"git://github.com/astashov/vim-ruby-debugger.git",
   "git://github.com/msanders/snipmate.vim.git",
-  "git://github.com/scrooloose/nerdtree.git",
+  #"git://github.com/scrooloose/nerdtree.git",
+	#use wycats modified janus nerdtree
+	"git://github.com/wycats/nerdtree.git",  
   "git://github.com/timcharper/textile.vim.git",
   "git://github.com/tpope/vim-cucumber.git",
   "git://github.com/tpope/vim-fugitive.git",
@@ -28,6 +30,8 @@ vim_org_scripts = [
   ["jquery",        "12276", "syntax"],
   ["dbext",         "13339",  "zip"],
   ["bufexplorer",   "14208",   "zip"],
+  ["fuzzyfinder",   "13961",   "zip"],
+  ["l9",  					"13948",   "zip"],
 	["nerdcommenter", "14455",   "zip"]
 ]
 
