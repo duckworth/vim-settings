@@ -102,6 +102,8 @@ let g:NERDTreeWinPos = "left"
 map <leader>nf :NERDTreeFind<cr>
 map <F2> :NERDTreeToggle<CR>
 "map <Leader>n :NERDTreeToggle<CR>
+" don't open nerdtree on directory opens
+let NERDTreeHijackNetrw=0 
 
 nmap <silent> <leader>n :silent :nohlsearch<CR>
 
@@ -143,3 +145,5 @@ nmap <leader>d :FufFileWithCurrentBufferDir<CR>
 nmap <leader>b :FufBuffer<CR>
 nmap <leader>t :FufTaggedFile<CR>
 noremap <leader>j :FufLine<CR>
+
+
