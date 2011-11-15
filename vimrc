@@ -146,4 +146,7 @@ nmap <leader>b :FufBuffer<CR>
 nmap <leader>t :FufTaggedFile<CR>
 noremap <leader>j :FufLine<CR>
 
-
+"Run this command in shell 
+"sudo cpan JSON::XS
+" pretty print format json
+map <leader>jt  <Esc>:%!json_xs -f json -t json-pretty<CR>
