@@ -32,7 +32,8 @@ vim_org_scripts = [
   ["bufexplorer",   "14208",   "zip"],
   ["fuzzyfinder",   "13961",   "zip"],
   ["l9",  					"13948",   "zip"],
-	["nerdcommenter", "14455",   "zip"]
+	["nerdcommenter", "14455",   "zip"],
+  ["wikipedia",  	  "7538",   "tar"]
 ]
 
 other_scripts = [
@@ -60,7 +61,7 @@ end
 vim_org_scripts.each do |name, script_id, script_type|
 #  next unless should_update name
   puts " Downloading #{name}"
-  local_file = File.join(name, script_type, "#{name}.#{script_type == 'zip' ? 'zip' : 'vim'}")
+  local_file = File.join(name, script_type, "#{name}.#{script_type == 'zip' ? 'zip' : script_type == 'tar' ? 'tar': 'vim'}")
   FileUtils.mkdir_p(File.dirname(local_file))
   File.open(local_file, "w") do |file|
     file << open("http://www.vim.org/scripts/download_script.php?src_id=#{script_id}").read
@@ -68,6 +69,9 @@ vim_org_scripts.each do |name, script_id, script_type|
   if script_type == 'zip'
     %x(unzip -d #{name} #{local_file})
   end
+	if script_type == 'tar'
+		%x(mv #{local_file} #{name};cd #{name};tar xzvf *.tar)
+	end
 end
 
 
