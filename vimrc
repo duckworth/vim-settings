@@ -116,7 +116,7 @@ let g:sql_type_default = 'mysql'
 
 
 " highlight tabs and trailing spaces
-set listchars=tab:>-,trail:-
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 " set list
 
 au BufRead,BufNewFile *.thrift set filetype=thrift
