@@ -7,7 +7,8 @@ set guifont=Monaco:h12.00
 "colorscheme xoria256
 let g:solarized_termtrans=0
 let g:solarized_degrade=0
-colorscheme solarized
+"colorscheme solarized
+colorscheme xoria256
 
 " No audible bell
 set vb
