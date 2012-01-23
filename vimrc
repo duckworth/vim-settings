@@ -145,6 +145,8 @@ nmap <leader>d :FufFileWithCurrentBufferDir<CR>
 nmap <leader>b :FufBuffer<CR>
 nmap <leader>t :FufTaggedFile<CR>
 noremap <leader>j :FufLine<CR>
+nmap <S-F2>  :FufRenewCache<CR>
+
 
 "Run this command in shell 
 "sudo cpan JSON::XS
