@@ -152,3 +152,8 @@ nmap <S-F2>  :FufRenewCache<CR>
 "sudo cpan JSON::XS
 " pretty print format json
 map <leader>jt  <Esc>:%!json_xs -f json -t json-pretty<CR>
+
+" operations such as yy, D, and P work with the OS clipboard
+set clipboard=unnamed
+
+:command W w
