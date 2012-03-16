@@ -120,9 +120,12 @@ let g:sql_type_default = 'mysql'
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 " set list
 
+"syntax
 au BufRead,BufNewFile *.thrift set filetype=thrift
 au! Syntax thrift source ~/.vim/bundle/thrift/syntax/thrift.vim
 
+au BufRead,BufNewFile *.pig set filetype=pig
+"
 " gist-vim defaults
 if has("mac")
   let g:gist_clip_command = 'pbcopy'
@@ -152,9 +155,14 @@ nmap <S-F2>  :FufRenewCache<CR>
 "Run this command in shell 
 "sudo cpan JSON::XS
 " pretty print format json
-map <leader>jt  <Esc>:%!json_xs -f json -t json-pretty<CR>
-
+map <leader>jt  <Esc>:%!json_xs -f json -t json-pretty<CR>:set filetype=json<CR>
+" alternative format JSON
+map <Leader>js <Esc>:%!python -m json.tool<CR>:set filetype=json<CR>
 " operations such as yy, D, and P work with the OS clipboard
 set clipboard=unnamed
 
 :command W w
+
+"highlight current line
+:set cursorline
+:set cursorcolumn

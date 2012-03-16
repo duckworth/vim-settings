@@ -33,7 +33,9 @@ vim_org_scripts = [
   ["fuzzyfinder",   "13961",   "zip"],
   ["l9",  					"13948",   "zip"],
 	["nerdcommenter", "14455",   "zip"],
-  ["wikipedia",  	  "7538",   "tar"]
+  ["wikipedia",  	  "7538",   "tar"],
+	["json",          "10853",  "syntax"],
+	["pig",          "10654",  "syntax"]
 ]
 
 other_scripts = [
