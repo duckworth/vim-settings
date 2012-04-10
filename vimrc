@@ -165,12 +165,12 @@ nmap <S-F2>  :FufRenewCache<CR>
 " pretty print format json
 "Run this command in shell 
 "sudo cpan JSON::XS
-map <leader>fj2  <Esc>:%!json_xs -f json -t json-pretty<CR>:set filetype=json<CR>
+map <leader>pj2  <Esc>:%!json_xs -f json -t json-pretty<CR>:set filetype=json<CR>
 " alternative format JSON
-map <Leader>fj <Esc>:%!python -m json.tool<CR>:set filetype=json<CR>
+map <Leader>pj <Esc>:%!python -m json.tool<CR>:set filetype=json<CR>
 
 "pretty format xml
-map <Leader>fx <Esc>:%!ruby ~/.vim/xmlformat.rb<CR>
+map <Leader>px <Esc>:%!ruby ~/.vim/xmlformat.rb<CR>
 
 
 " operations such as yy, D, and P work with the OS clipboard
