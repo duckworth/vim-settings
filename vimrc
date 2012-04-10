@@ -139,6 +139,16 @@ let g:gist_open_browser_after_post = 1
 " Command mode: Ctrl+P
 cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 
+"output the :g/pattern/ results to a new window. explanation:
+":redir @a         redirect output to register a
+":g//              repeat last global command
+":redir END        end redirection
+":new              create new window
+":put! a           paste register a into new window
+"nmap <F3> :redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR><CR>
+" Turn off line numbers, do g//, restore previous state.
+nmap <F3> :let @b=&number<CR>:set nonumber<CR>:redir @a<CR>:g//<CR>:redir END<CR>:let &number=@b<CR>:new<CR>:put! a<CR><CR>
+
 " add json syntax highlighting
 au BufNewFile,BufRead *.json set ft=javascript
 
@@ -152,12 +162,17 @@ noremap <leader>j :FufLine<CR>
 nmap <S-F2>  :FufRenewCache<CR>
 
 
+" pretty print format json
 "Run this command in shell 
 "sudo cpan JSON::XS
-" pretty print format json
-map <leader>jt  <Esc>:%!json_xs -f json -t json-pretty<CR>:set filetype=json<CR>
+map <leader>fj2  <Esc>:%!json_xs -f json -t json-pretty<CR>:set filetype=json<CR>
 " alternative format JSON
-map <Leader>js <Esc>:%!python -m json.tool<CR>:set filetype=json<CR>
+map <Leader>fj <Esc>:%!python -m json.tool<CR>:set filetype=json<CR>
+
+"pretty format xml
+map <Leader>fx <Esc>:%!ruby ~/.vim/xmlformat.rb<CR>
+
+
 " operations such as yy, D, and P work with the OS clipboard
 set clipboard=unnamed
 
