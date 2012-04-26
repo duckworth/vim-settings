@@ -170,7 +170,7 @@ map <leader>pj2  <Esc>:%!json_xs -f json -t json-pretty<CR>:set filetype=json<CR
 map <Leader>pj <Esc>:%!python -m json.tool<CR>:set filetype=json<CR>
 
 "pretty format xml
-map <Leader>px <Esc>:%!ruby ~/.vim/xmlformat.rb<CR>
+map <Leader>px <Esc>:%!ruby ~/.vim/xmlformat.rb<CR>:set filetype=xml<CR>
 
 
 " operations such as yy, D, and P work with the OS clipboard
