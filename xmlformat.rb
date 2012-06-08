@@ -160,7 +160,7 @@ class XMLFormatter
     @elt_opts["*DEFAULT"] = {
       "format"        => "block",
       "normalize"     => "no",
-      "subindent"     => 1,
+      "subindent"     => 2,
       "wrap-length"   => 0,
       "entry-break"   => 1,
       "exit-break"    => 1,

@@ -21,21 +21,26 @@ git_bundles = [
   "git://github.com/tsaleh/vim-supertab.git",
   "git://github.com/tsaleh/vim-tcomment.git",
   "git://github.com/vim-ruby/vim-ruby.git",
-	"git://github.com/altercation/vim-colors-solarized.git"
+	"git://github.com/altercation/vim-colors-solarized.git",
+	"git://github.com/tpope/vim-unimpaired.git",
+	"git://github.com/kien/ctrlp.vim.git"
 ]
 
 vim_org_scripts = [
-  ["IndexedSearch", "7062",  "plugin"],
-  ["gist",          "15452", "plugin"],
-  ["jquery",        "12276", "syntax"],
-  ["dbext",         "13339",  "zip"],
+  #["IndexedSearch", "7062",  "plugin"],
+  ["gist",          "18053", "zip"],
+  ["jquery",        "15752", "syntax"],
+  ["dbext",         "17851",  "zip"],
   ["bufexplorer",   "14208",   "zip"],
-  ["fuzzyfinder",   "13961",   "zip"],
+ #["fuzzyfinder",   "13961",   "zip"],
   ["l9",  					"13948",   "zip"],
 	["nerdcommenter", "14455",   "zip"],
-  ["wikipedia",  	  "7538",   "tar"],
+  ["wikipedia",  	  "16886",   "tar"],
 	["json",          "10853",  "syntax"],
-	["pig",          "10654",  "syntax"]
+	["pig",           "10654",  "syntax"],
+	["twilight",      "16547",  "colors"],
+  ["vilight",       "16574",  "colors"],
+  ["jellybeans",    "17225",  "colors"]
 ]
 
 other_scripts = [
