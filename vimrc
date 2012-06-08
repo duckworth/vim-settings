@@ -182,4 +182,4 @@ set clipboard=unnamed
 
 "highlight current line
 :set cursorline
-:set cursorcolumn
+":set cursorcolumn
