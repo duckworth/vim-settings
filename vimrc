@@ -62,6 +62,7 @@ set laststatus=2                  " Show the status line all the time
 "colorscheme solarized
 "colorscheme xoria256
 "let g:jellybeans_use_lowcolor_black=1
+set t_Co=256
 colorscheme jellybeans
 
 "map leader to comma
