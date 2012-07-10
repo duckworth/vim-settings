@@ -128,6 +128,8 @@ au BufRead,BufNewFile *.thrift set filetype=thrift
 au! Syntax thrift source ~/.vim/bundle/thrift/syntax/thrift.vim
 
 au BufRead,BufNewFile *.pig set filetype=pig
+
+au BufRead,BufNewFile *.avdl setlocal filetype=avro-idl
 "
 " gist-vim defaults
 if has("mac")

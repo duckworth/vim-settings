@@ -46,6 +46,7 @@ vim_org_scripts = [
 
 other_scripts = [
   ["thrift", "http://svn.apache.org/repos/asf/thrift/trunk/contrib/thrift.vim",  "syntax"],
+  ["avro-idl", "http://svn.apache.org/repos/asf/avro/trunk/share/editors/avro-idl.vim",  "syntax"],
 ]
 
 
