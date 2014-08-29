@@ -26,12 +26,13 @@ git_bundles = [
   "git://github.com/tpope/vim-unimpaired.git",
   "git://github.com/kien/ctrlp.vim.git",
   "git://github.com/derekwyatt/vim-scala.git",
-	"git://github.com/solarnz/thrift.git"
+	"git://github.com/solarnz/thrift.git",
+	"git://github.com/mattn/gist-vim.git"
 ]
 
 vim_org_scripts = [
   #["IndexedSearch", "7062",  "plugin"],
-  ["gist",          "18053", "zip"],
+  #["gist",          "18053", "zip"],
   ["jquery",        "15752", "syntax"],
   ["dbext",         "17851",  "zip"],
   ["bufexplorer",   "14208",   "zip"],
