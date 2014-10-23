@@ -186,3 +186,6 @@ set clipboard=unnamed
 "highlight current line
 :set cursorline
 ":set cursorcolumn
+
+"man in vim (Type :Man foo)
+runtime! ftplugin/man.vim
