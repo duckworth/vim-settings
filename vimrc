@@ -177,7 +177,7 @@ map <Leader>pj <Esc>:%!python -m json.tool<CR>:set filetype=json<CR>
 "pretty format xml
 map <Leader>px <Esc>:%!ruby ~/.vim/xmlformat.rb<CR>:set filetype=xml<CR>
 "prety html
-map <Leader>ph <Esc>:%!tidy -q -i --show-errors 0<CR>:set filetype=html<CR>
+map <Leader>ph <Esc>:%!tidy -q -i --wrap 120 --show-errors 0<CR>:set filetype=html<CR>
 "map <Leader>ph <Esc>:%!tidy -q -i --show-errors 0 2>/dev/null<CR>:set filetype=html<CR>
 
 
