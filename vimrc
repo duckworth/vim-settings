@@ -124,9 +124,6 @@ set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 " set list
 
 "syntax
-au BufRead,BufNewFile *.thrift set filetype=thrift
-au! Syntax thrift source ~/.vim/bundle/thrift/syntax/thrift.vim
-
 au BufRead,BufNewFile *.pig set filetype=pig
 
 au BufRead,BufNewFile *.avdl setlocal filetype=avro-idl
@@ -153,9 +150,6 @@ cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 "nmap <F3> :redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR><CR>
 " Turn off line numbers, do g//, restore previous state.
 nmap <F3> :let @b=&number<CR>:set nonumber<CR>:redir @a<CR>:g//<CR>:redir END<CR>:let &number=@b<CR>:new<CR>:put! a<CR><CR>
-
-" add json syntax highlighting
-au BufNewFile,BufRead *.json set ft=javascript
 
 " fuzzy finder
 nmap <leader>f :FufFile<CR>  

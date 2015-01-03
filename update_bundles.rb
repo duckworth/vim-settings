@@ -28,29 +28,31 @@ git_bundles = [
   "git://github.com/derekwyatt/vim-scala.git",
 	"git://github.com/solarnz/thrift.git",
 	"git://github.com/mattn/webapi-vim.git",
+	"git://github.com/scrooloose/nerdcommenter.git",
+	"git://github.com/vim-scripts/L9.git",
+	"git://github.com/vim-scripts/jQuery.git",
+	"git://github.com/vim-scripts/dbext.vim.git",
+	"git://github.com/vim-scripts/bufexplorer.zip.git",
+	"git://github.com/vim-scripts/vim-json-bundle.git",
+	"git://github.com/vim-scripts/pig.vim.git",
+	"git://github.com/vim-scripts/twilight.git",
+	"git://github.com/vim-scripts/vilight.vim.git",
+	"git://github.com/vim-scripts/jellybeans.vim.git",
+	"git://github.com/solarnz/thrift.vim.git",
+	"git://github.com/dln/avro-vim.git",
 	"git://github.com/mattn/gist-vim.git"
 ]
 
 vim_org_scripts = [
   #["IndexedSearch", "7062",  "plugin"],
   #["gist",          "18053", "zip"],
-  ["jquery",        "15752", "syntax"],
-  ["dbext",         "17851",  "zip"],
-  ["bufexplorer",   "14208",   "zip"],
   #["fuzzyfinder",   "13961",   "zip"],
-  ["l9",  					"13948",   "zip"],
-  ["nerdcommenter", "14455",   "zip"],
-  ["wikipedia",  	  "16886",   "tar"],
-  ["json",          "10853",  "syntax"],
-  ["pig",           "10654",  "syntax"],
-  ["twilight",      "16547",  "colors"],
-  ["vilight",       "16574",  "colors"],
-  ["jellybeans",    "17225",  "colors"]
+  #["json",          "10853",  "syntax"],
 ]
 
 other_scripts = [
  # ["thrift", "http://svn.apache.org/repos/asf/thrift/trunk/contrib/thrift.vim",  "syntax"],
-  ["avro-idl", "http://svn.apache.org/repos/asf/avro/trunk/share/editors/avro-idl.vim",  "syntax"]
+  #["avro-idl", "http://svn.apache.org/repos/asf/avro/trunk/share/editors/avro-idl.vim",  "syntax"]
 ]
 
 
