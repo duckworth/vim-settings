@@ -51,7 +51,18 @@ set shiftwidth=2                 " And again, related.
 
 set laststatus=2                  " Show the status line all the time
 " Useful status information at bottom of screen
- set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{fugitive#statusline()}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l/%L,%c-%v\ %)%P
+set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{fugitive#statusline()}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l/%L,%c-%v\ %)%P
+
+set history=1000
+set autoread
+set fileformats+=mac
+set tabpagemax=50
+set nrformats-=octal
+
+
+if &encoding ==# 'latin1' && has('gui_running')
+  set encoding=utf-8
+endif
 
 " soloarized options
 "let g:solarized_termcolors=256
@@ -118,10 +129,13 @@ let g:dbext_default_type   = 'MYSQL'
 
 let g:sql_type_default = 'mysql'
 
-
 " highlight tabs and trailing spaces
-set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+set listchars=eol:$,tab:>-,trail:-,extends:>,precedes:<,nbsp:+
 " set list
+
+if maparg('<C-L>', 'n') ==# ''
+  nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
+endif
 
 "syntax
 au BufRead,BufNewFile *.pig set filetype=pig
@@ -177,8 +191,8 @@ map <Leader>ph <Esc>:%!tidy -q -i --wrap 120 --show-errors 0<CR>:set filetype=ht
 
 " operations such as yy, D, and P work with the OS clipboard
 set clipboard=unnamed
-
-:command W w
+"command abbreviations
+:ca W w
 
 "highlight current line
 :set cursorline
