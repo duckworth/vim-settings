@@ -141,6 +141,7 @@ endif
 au BufRead,BufNewFile *.pig set filetype=pig
 
 au BufRead,BufNewFile *.avdl setlocal filetype=avro-idl
+au BufRead,BufNewFile *.template setfiletype json
 "
 " gist-vim defaults
 if has("mac")
