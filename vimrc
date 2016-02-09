@@ -1,4 +1,3 @@
-" Example Vim configuration.
 " Copy or symlink to ~/.vimrc or ~/_vimrc.
 
 set nocompatible                  " Must come first because it changes other options.
@@ -11,8 +10,8 @@ filetype plugin indent on         " Turn on file type detection.
 
 runtime macros/matchit.vim        " Load the matchit plugin.
 
-set showcmd                       " Display incomplete commands.
 set showmode                      " Display the mode you're in.
+set showcmd                       " Display incomplete commands.
 
 set backspace=indent,eol,start    " Intuitive backspacing.
 
@@ -130,7 +129,8 @@ let g:dbext_default_type   = 'MYSQL'
 let g:sql_type_default = 'mysql'
 
 " highlight tabs and trailing spaces
-set listchars=eol:$,tab:>-,trail:-,extends:>,precedes:<,nbsp:+
+"set listchars=eol:$,tab:>-,trail:-,extends:>,precedes:<,nbsp:+
+set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 " set list
 
 if maparg('<C-L>', 'n') ==# ''
@@ -184,7 +184,8 @@ map <leader>pj2  <Esc>:%!json_xs -f json -t json-pretty<CR>:set filetype=json<CR
 map <Leader>pj <Esc>:%!python -m json.tool<CR>:set filetype=json<CR>
 
 "pretty format xml
-map <Leader>px <Esc>:%!ruby ~/.vim/xmlformat.rb<CR>:set filetype=xml<CR>
+map <Leader>px <Esc>:%!ruby -W0 ~/.vim/xmlformat.rb<CR>:set filetype=xml<CR>
+map <Leader>px2 <Esc>:%!~/.vim/xmlformat.pl<CR>:set filetype=xml<CR> 
 "prety html
 map <Leader>ph <Esc>:%!tidy -q -i --wrap 120 --show-errors 0<CR>:set filetype=html<CR>
 "map <Leader>ph <Esc>:%!tidy -q -i --show-errors 0 2>/dev/null<CR>:set filetype=html<CR>
