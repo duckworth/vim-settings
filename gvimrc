@@ -2,7 +2,7 @@
 " Copy to ~/.gvimrc or ~/_gvimrc.
 
 " Font
-set guifont=Monaco:h12.00
+set guifont=Menlo:h12.00
 
 "colorscheme xoria256
 "let g:solarized_termtrans=0
@@ -29,5 +29,3 @@ set antialias                     " MacVim: smooth fonts.
 
 set guioptions-=r                 " Don't show right scrollbar
 set guioptions-=L
-
-
