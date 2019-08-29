@@ -180,6 +180,7 @@ nmap <S-F2>  :FufRenewCache<CR>
 "Run this command in shell 
 "sudo cpan JSON::XS
 map <leader>pj2  <Esc>:%!json_xs -f json -t json-pretty<CR>:set filetype=json<CR>
+map <leader>pj3  <Esc>:%!jq '.'<CR>:set filetype=json<CR>
 " alternative format JSON
 map <Leader>pj <Esc>:%!python -m json.tool<CR>:set filetype=json<CR>
 
@@ -189,7 +190,8 @@ map <Leader>px2 <Esc>:%!~/.vim/xmlformat.pl<CR>:set filetype=xml<CR>
 "prety html
 map <Leader>ph <Esc>:%!tidy -q -i --wrap 120 --show-errors 0<CR>:set filetype=html<CR>
 "map <Leader>ph <Esc>:%!tidy -q -i --show-errors 0 2>/dev/null<CR>:set filetype=html<CR>
-
+" disable json conceal quotes
+let g:vim_json_syntax_conceal = 0
 
 " operations such as yy, D, and P work with the OS clipboard
 set clipboard=unnamed
