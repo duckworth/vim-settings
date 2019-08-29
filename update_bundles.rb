@@ -41,7 +41,9 @@ git_bundles = [
   "git://github.com/vim-scripts/jellybeans.vim.git",
   "git://github.com/solarnz/thrift.vim.git",
   "git://github.com/dln/avro-vim.git",
-  "git://github.com/mattn/gist-vim.git"
+  "git://github.com/mattn/gist-vim.git",
+  "git://github.com/leafgarland/typescript-vim.git",
+  "git://github.com/peitalin/vim-jsx-typescript.git"
 ]
 
 vim_org_scripts = [
