@@ -181,8 +181,9 @@ nmap <S-F2>  :FufRenewCache<CR>
 "sudo cpan JSON::XS
 map <leader>pj2  <Esc>:%!json_xs -f json -t json-pretty<CR>:set filetype=json<CR>
 map <leader>pj3  <Esc>:%!jq '.'<CR>:set filetype=json<CR>
+map <Leader>pj4444 <Esc>:%!python2 -m json.tool<CR>:set filetype=json<CR>
 " alternative format JSON
-map <Leader>pj <Esc>:%!python -m json.tool<CR>:set filetype=json<CR>
+map <Leader>pj <Esc>:%!ruby -rjson -e 'puts JSON.pretty_generate(JSON.load($<))'<CR>:set filetype=json<CR>
 
 "pretty format xml
 map <Leader>px <Esc>:%!ruby -W0 ~/.vim/xmlformat.rb<CR>:set filetype=xml<CR>
