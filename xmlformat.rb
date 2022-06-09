@@ -44,7 +44,7 @@ module XMLFormat
 # die - print message to stderr and exit
 
 def warn(*args)
-  $stderr.print args
+  #$stderr.print args
 end
 
 def die(*args)
@@ -97,7 +97,9 @@ end
 "#{@@name}(?:#{@@s}#{@@name}(?:#{@@s})?=(?:#{@@s})?(?:#{@@att_val_se}))*(?:#{@@s})?/?>?"
 @@markup_spe =
 "<(?:!(?:#{@@decl_ce})?|\\?(?:#{@@pi_ce})?|/(?:#{@@end_tag_ce})?|(?:#{@@elem_tag_se})?)"
-@@xml_spe = Regexp.new("#{@@text_se}|#{@@markup_spe}")
+updated_regex ="#{@@text_se}|#{@@markup_spe}".gsub("+)?","*)")
+@@xml_spe = Regexp.new(updated_regex)
+
 
 # ----------------------------------------------------------------------
 
@@ -1456,7 +1458,7 @@ if backup_suffix
 end
 
 # Save input filenames
-in_file = ARGV.dup
+#in_file = ARGV.dup
 
 xf = XMLFormatter.new
 
