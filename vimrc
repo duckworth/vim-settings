@@ -2,8 +2,75 @@
 
 set nocompatible                  " Must come first because it changes other options.
 
-silent! call pathogen#runtime_append_all_bundles()
-silent! call pathogen#helptags()
+" Initialize vim-plug (replaces pathogen)
+" Automatically install vim-plug if not installed
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Define plugins
+call plug#begin('~/.vim/plugged')
+
+" Syntax and language support
+Plug 'sheerun/vim-polyglot'                 " Language pack that includes most languages
+
+" Snippets (using UltiSnips only)
+Plug 'SirVer/ultisnips'                     " Advanced snippet engine
+Plug 'honza/vim-snippets'                   " Snippet collection
+
+" File navigation and project management
+Plug 'preservim/nerdtree'                   " File explorer
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }  " Fuzzy finder
+Plug 'junegunn/fzf.vim'                     " FZF integration
+
+" Git integration
+Plug 'tpope/vim-fugitive'                   " Git wrapper
+
+" Ruby and Rails
+Plug 'tpope/vim-rails'                      " Rails support
+
+" Editing enhancements
+Plug 'tpope/vim-repeat'                     " Repeat plugin maps
+Plug 'tpope/vim-surround'                   " Surround text objects
+Plug 'junegunn/vim-easy-align'              " Align text (maintained version)
+Plug 'tomtom/tcomment_vim'                  " Comment code (maintained version)
+Plug 'scrooloose/nerdcommenter'             " Code commenter
+
+" Tab completion
+Plug 'ervandew/supertab'                  " Tab completion (maintained version)
+
+" Testing
+Plug 'vim-test/vim-test'                    " Modern test runner for various languages
+
+" Themes and colors
+Plug 'tpope/vim-vividchalk'                 " Color scheme
+Plug 'altercation/vim-colors-solarized'     " Solarized color scheme
+Plug 'nanotech/jellybeans.vim'              " Jellybeans color scheme
+Plug 'vim-scripts/twilight'                 " Twilight color scheme
+Plug 'vim-scripts/vilight.vim'              " Vilight color scheme
+Plug 'vim-airline/vim-airline'              " Status line enhancement
+Plug 'vim-airline/vim-airline-themes'       " Themes for airline
+
+" Programming utilities
+Plug 'vim-scripts/L9'                       " Utility functions
+" Plug 'itchyny/vim-jquery'                   " jQuery syntax (maintained)
+Plug 'vim-scripts/dbext.vim'                " Database tool
+Plug 'jlanzarotta/bufexplorer'              " Buffer explorer (maintained version)
+Plug 'motus/pig.vim'                        " Pig Latin syntax (maintained)
+Plug 'dln/avro-vim'                         " Avro support
+
+" Additional utilities
+Plug 'tpope/vim-unimpaired'                 " Paired mappings
+Plug 'mattn/webapi-vim'                     " Web API client
+Plug 'mattn/gist-vim'                       " Gist integration
+Plug 'airblade/vim-gitgutter'               " Git diff in the gutter
+
+" Modern additions
+Plug 'jiangmiao/auto-pairs'                 " Auto-close brackets, quotes, etc.
+
+call plug#end()
 
 syntax enable                     " Turn on syntax highlighting.
 filetype plugin indent on         " Turn on file type detection.
@@ -50,7 +117,20 @@ set shiftwidth=2                 " And again, related.
 
 set laststatus=2                  " Show the status line all the time
 " Useful status information at bottom of screen
-set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{fugitive#statusline()}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l/%L,%c-%v\ %)%P
+" Original statusline (commented out in case you want to revert)
+" set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{exists('*fugitive#statusline')?fugitive#statusline():''}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l/%L,%c-%v\ %)%P
+
+" Simplified statusline with basic ASCII characters
+set statusline=
+set statusline+=[%n]                                " Buffer number
+set statusline+=\ %f                                " Filename
+set statusline+=\ %h%w%m%r                          " Flags (help, preview, modified, readonly)
+set statusline+=%y                                  " Filetype
+set statusline+=\ %{exists('*fugitive#statusline')?fugitive#statusline():''}  " Git status
+set statusline+=%=                                  " Switch to right side
+set statusline+=Line:\ %l/%L                        " Current line/total lines
+set statusline+=\ Col:\ %c                          " Current column
+set statusline+=\ \|\ %P                            " Percentage through file
 
 set history=1000
 set autoread
@@ -69,11 +149,18 @@ endif
 "let g:solarized_degrade=1
 "set background=dark
 
-"colorscheme solarized
-"colorscheme xoria256
-"let g:jellybeans_use_lowcolor_black=1
+" Set colorscheme - safely handle first run before plugins are installed
 set t_Co=256
-colorscheme jellybeans
+try
+  colorscheme jellybeans
+catch /^Vim\%((\a\+)\)\=:E185/
+  " If jellybeans isn't available, use a default color scheme
+  colorscheme default
+  " Add autocmd to apply jellybeans after the plugins are installed
+  autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+    \| PlugInstall --sync | source $MYVIMRC
+    \| endif
+endtry
 
 "map leader to comma
 let mapleader = ","
@@ -166,15 +253,13 @@ cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 " Turn off line numbers, do g//, restore previous state.
 nmap <F3> :let @b=&number<CR>:set nonumber<CR>:redir @a<CR>:g//<CR>:redir END<CR>:let &number=@b<CR>:new<CR>:put! a<CR><CR>
 
-" fuzzy finder
-nmap <leader>f :FufFile<CR>  
-nmap <leader>o :FufCoverageFile<CR>
-nmap <leader>d :FufFileWithCurrentBufferDir<CR>
-nmap <leader>b :FufBuffer<CR>
-nmap <leader>t :FufTaggedFile<CR>
-noremap <leader>j :FufLine<CR>
-nmap <S-F2>  :FufRenewCache<CR>
-
+" FZF mappings (replaces FuzzyFinder)
+nmap <leader>f :Files<CR>  
+nmap <leader>o :GFiles<CR>
+nmap <leader>d :Files %:h<CR>
+nmap <leader>b :Buffers<CR>
+nmap <leader>t :Tags<CR>
+noremap <leader>j :Lines<CR>
 
 " pretty print format json
 "Run this command in shell 
@@ -206,3 +291,46 @@ set clipboard=unnamed
 
 "man in vim (Type :Man foo)
 runtime! ftplugin/man.vim
+
+" Make sure directory for vim temp files exists
+if !isdirectory($HOME.'/.vim/tmp')
+  call mkdir($HOME.'/.vim/tmp', 'p')
+endif
+
+" vim-easy-align configuration
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+" vim-test configuration
+nmap <silent> <leader>tn :TestNearest<CR>
+nmap <silent> <leader>tf :TestFile<CR>
+nmap <silent> <leader>ts :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tg :TestVisit<CR>
+
+" UltiSnips configuration
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsEditSplit="vertical"
+
+" Airline configuration
+let g:airline_theme = 'jellybeans'
+let g:airline_powerline_fonts = 0
+let g:airline_symbols_ascii = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'default'
+
+" If you still see strange characters, uncomment these lines:
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_symbols.linenr = 'Ln'
+let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.branch = 'Branch'
+let g:airline_symbols.readonly = 'RO'
+let g:airline_symbols.dirty = '!'

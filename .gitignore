@@ -1,3 +1,24 @@
-spell
+# Vim swap and backup files
+*.swp
+*.swo
+~*
+*~
+
+# Vim plugin directories
+/plugged/
+/autoload/plug.vim
+/bundle/
+
+# Vim runtime files
+/spell/
 .netrwhist
+/tmp/
+
+# Tags
+tags
+tags.lock
+tags.temp
+
+# macOS system files
+.DS_Store
 
