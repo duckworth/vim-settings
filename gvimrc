@@ -1,8 +1,13 @@
 " Example Vim graphical configuration.
 " Copy to ~/.gvimrc or ~/_gvimrc.
 
-" Font
-set guifont=Menlo:h12.00
+" Font - try JetBrains Mono first, fall back to Menlo if not available
+if has("gui_macvim")
+  set guifont=JetBrains\ Mono:h13,Menlo:h12
+else
+  set guifont=JetBrains\ Mono\ 13,Menlo\ 12
+endif
+
 
 " Color scheme - uncomment your preferred scheme
 "colorscheme jellybeans
