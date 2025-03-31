@@ -11,6 +11,8 @@ A modernized Vim configuration with carefully selected plugins and sensible defa
 - **File Navigation**: Enhanced NERDTree setup with convenient mappings
 - **Advanced Editing**: Snippets, text manipulation, and code formatting
 - **Beautiful UI**: Modern color schemes and airline status bar
+- **Language Server Protocol**: Code intelligence via CoC.nvim
+- **Modern Language Support**: Enhanced support for Ruby, TypeScript, React, and Python
 
 ## Quick Installation
 
@@ -68,6 +70,39 @@ After running the script, simply start Vim and the plugins will be installed aut
 
 3. Launch Vim. Vim-plug will automatically install itself and download all plugins on first startup.
 
+## Setting up Language Servers
+
+After installing the plugins, you need to install language servers for your development stack:
+
+```
+# Inside Vim, run these commands one at a time:
+:CocInstall coc-solargraph
+:CocInstall coc-tsserver
+:CocInstall coc-pyright
+:CocInstall coc-eslint
+:CocInstall coc-prettier
+```
+
+These extensions provide language support for:
+- **coc-solargraph**: Ruby
+- **coc-tsserver**: JavaScript and TypeScript
+- **coc-pyright**: Python
+- **coc-eslint**: Linting for JavaScript/TypeScript
+- **coc-prettier**: Code formatting
+
+You may need to install some language servers on your system:
+
+```bash
+# For Ruby
+gem install solargraph
+
+# For Python
+pip install pylint
+
+# For JavaScript/TypeScript
+npm install -g typescript typescript-language-server eslint prettier
+```
+
 ## Verifying Your Installation
 
 To check if your installation is working correctly:
@@ -99,6 +134,15 @@ Leader key is mapped to `,` (comma)
 - `,tf` - First tab
 - `,tl` - Last tab
 
+### Code Intelligence (CoC.nvim)
+- `gd` - Go to definition
+- `gy` - Go to type definition
+- `gi` - Go to implementation 
+- `gr` - Find references
+- `K` - Show documentation
+- `,rn` - Rename symbol
+- `,qf` - Quick fix current problem
+
 ### Code Formatting
 - `,pj` - Format JSON
 - `,py` - Format YAML
@@ -117,6 +161,7 @@ To update all plugins, run this command in Vim:
 - Vim 8.0+ or Neovim
 - Git
 - curl
+- Node.js (for CoC.nvim)
 - For best experience: a terminal with true color support
 
 ## macOS Specific Setup

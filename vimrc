@@ -70,6 +70,29 @@ Plug 'airblade/vim-gitgutter'               " Git diff in the gutter
 " Modern additions
 Plug 'jiangmiao/auto-pairs'                 " Auto-close brackets, quotes, etc.
 
+" LSP Support
+Plug 'neoclide/coc.nvim', {'branch': 'release'}  " Intellisense engine
+
+" TypeScript and React
+Plug 'leafgarland/typescript-vim'           " TypeScript syntax
+Plug 'peitalin/vim-jsx-typescript'          " TSX/JSX syntax
+
+" Enhanced Ruby support
+Plug 'vim-ruby/vim-ruby'                    " Better Ruby support
+Plug 'tpope/vim-bundler'                    " Bundler integration
+Plug 'tpope/vim-endwise'                    " Auto-add end to Ruby blocks
+
+" Python
+Plug 'vim-python/python-syntax'             " Enhanced Python syntax
+Plug 'Vimjas/vim-python-pep8-indent'        " PEP8 indentation
+
+" Project-wide search/replace
+Plug 'wincent/ferret'                       " Multi-file search/replace
+
+" Advanced Git
+Plug 'tpope/vim-rhubarb'                    " GitHub integration
+Plug 'junegunn/gv.vim'                      " Git commit browser
+
 call plug#end()
 
 syntax enable                     " Turn on syntax highlighting.
@@ -334,3 +357,55 @@ let g:airline_symbols.maxlinenr = ''
 let g:airline_symbols.branch = 'Branch'
 let g:airline_symbols.readonly = 'RO'
 let g:airline_symbols.dirty = '!'
+
+" CoC.nvim configuration
+" Set tab for CoC autocomplete
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Use <c-space> to trigger completion
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Helper function for tab completion
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" GoTo code navigation
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Symbol renaming and formatting
+nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>qf <Plug>(coc-fix-current)
+
+" Install language servers for your stack:
+" :CocInstall coc-solargraph      " Ruby
+" :CocInstall coc-tsserver        " JavaScript/TypeScript
+" :CocInstall coc-pyright         " Python
+" :CocInstall coc-eslint coc-prettier " Linting/Formatting
+" :CocInstall coc-pairs           " Auto pairs (alternative to auto-pairs)
+
+" Enhanced Python syntax
+let g:python_highlight_all = 1
