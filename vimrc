@@ -16,10 +16,6 @@ call plug#begin('~/.vim/plugged')
 " Syntax and language support
 Plug 'sheerun/vim-polyglot'                 " Language pack that includes most languages
 
-" Snippets (using UltiSnips only)
-Plug 'SirVer/ultisnips'                     " Advanced snippet engine
-Plug 'honza/vim-snippets'                   " Snippet collection
-
 " File navigation and project management
 Plug 'preservim/nerdtree'                   " File explorer
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }  " Fuzzy finder
@@ -68,8 +64,10 @@ Plug 'airblade/vim-gitgutter'               " Git diff in the gutter
 " Modern additions
 Plug 'jiangmiao/auto-pairs'                 " Auto-close brackets, quotes, etc.
 
-" LSP Support
-Plug 'neoclide/coc.nvim', {'branch': 'release'}  " Intellisense engine
+" LSP Support - vim-lsp instead of CoC
+Plug 'prabirshrestha/vim-lsp'               " Lightweight native LSP client
+Plug 'prabirshrestha/asyncomplete.vim'      " Async completion
+Plug 'prabirshrestha/asyncomplete-lsp.vim'  " LSP source for asyncomplete
 
 " TypeScript and React
 Plug 'leafgarland/typescript-vim'           " TypeScript syntax
@@ -307,79 +305,74 @@ nnoremap <silent> <leader>ts :TestSuite<CR>
 nnoremap <silent> <leader>tl :TestLast<CR>
 nnoremap <silent> <leader>tg :TestVisit<CR>
 
-" UltiSnips configuration
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsEditSplit="vertical"
-
 " Airline configuration
 let g:airline_theme = 'jellybeans'
-let g:airline_powerline_fonts = 0
-let g:airline_symbols_ascii = 1
+let g:airline_powerline_fonts = 1
+" let g:airline_symbols_ascii = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'default'
 
 " If you still see strange characters, uncomment these lines:
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_symbols.linenr = 'Ln'
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.branch = 'Branch'
-let g:airline_symbols.readonly = 'RO'
-let g:airline_symbols.dirty = '!'
+" if !exists('g:airline_symbols')
+"   let g:airline_symbols = {}
+" endif
 
-" CoC.nvim configuration
-" Set tab for CoC autocomplete
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+" vim-lsp configuration
+" Enable lsp status in airline 
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_diagnostics_signs_enabled = 1
 
-" Use <c-space> to trigger completion
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
+" Register language servers
+
+" Ruby (Solargraph)
+if executable('solargraph')
+  autocmd User lsp_setup call lsp#register_server({
+        \ 'name': 'solargraph',
+        \ 'cmd': {server_info->['solargraph', 'stdio']},
+        \ 'whitelist': ['ruby'],
+        \ })
 endif
 
-" Helper function for tab completion
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" Python (pyls)
+if executable('pyls')
+  autocmd User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
 
-" Use K to show documentation in preview window
-nnoremap <silent> K :call ShowDocumentation()<CR>
+" JavaScript/TypeScript (typescript-language-server)
+if executable('typescript-language-server')
+  autocmd User lsp_setup call lsp#register_server({
+        \ 'name': 'tsserver',
+        \ 'cmd': {server_info->['typescript-language-server', '--stdio']},
+        \ 'whitelist': ['javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'],
+        \ })
+endif
 
-function! ShowDocumentation()
-  if CocAction('hasProvider', 'hover')
-    call CocActionAsync('doHover')
-  else
-    call feedkeys('K', 'in')
-  endif
-endfunction
+" LSP Keybindings
+nmap <silent> gd <Plug>(lsp-definition)
+nmap <silent> gy <Plug>(lsp-type-definition)
+nmap <silent> gi <Plug>(lsp-implementation)
+nmap <silent> gr <Plug>(lsp-references)
+nmap <silent> K <Plug>(lsp-hover)
+nmap <silent> <leader>rn <Plug>(lsp-rename)
+nmap <silent> <leader>qf <Plug>(lsp-code-action)
+nmap <silent> ]g <Plug>(lsp-next-diagnostic)
+nmap <silent> [g <Plug>(lsp-previous-diagnostic)
 
-" GoTo code navigation
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+" asyncomplete configuration
+let g:asyncomplete_auto_popup = 1
+let g:asyncomplete_auto_completeopt = 0
+set completeopt=menuone,noinsert,noselect,preview
 
-" Symbol renaming and formatting
-nmap <leader>rn <Plug>(coc-rename)
-nmap <leader>qf <Plug>(coc-fix-current)
-
-" Install language servers for your stack:
-" :CocInstall coc-solargraph      " Ruby
-" :CocInstall coc-tsserver        " JavaScript/TypeScript
-" :CocInstall coc-pyright         " Python
-" :CocInstall coc-eslint coc-prettier " Linting/Formatting
-" :CocInstall coc-pairs           " Auto pairs (alternative to auto-pairs)
+" Use SuperTab for completion navigation
+let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabCrMapping = 0
+inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 
 " Enhanced Python syntax
 let g:python_highlight_all = 1

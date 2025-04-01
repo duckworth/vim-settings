@@ -28,6 +28,9 @@ set guioptions-=b                 " Don't show bottom scrollbar
 
 set guioptions+=k " Keep the window size when adding/removing UI elements
 
+let g:airline#extensions#tabline#enabled = 0 " Disable airline tabline
+set guioptions+=e " Enable tabline
+
 "set guifont=Andale\ Mono:h14            " Font family and font size.
 "set encoding=utf-8                " Use UTF-8 everywhere.
 "set guioptions-=T                 " Hide toolbar.

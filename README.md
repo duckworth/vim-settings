@@ -9,9 +9,9 @@ A modernized Vim configuration with carefully selected plugins and sensible defa
 - **Git Integration**: Includes git support with fugitive and gitgutter
 - **Syntax Highlighting**: Comprehensive language support via vim-polyglot
 - **File Navigation**: Enhanced NERDTree setup with convenient mappings
-- **Advanced Editing**: Snippets, text manipulation, and code formatting
+- **Advanced Editing**: Text manipulation and code formatting
 - **Beautiful UI**: Modern color schemes and airline status bar
-- **Language Server Protocol**: Code intelligence via CoC.nvim
+- **Language Server Protocol**: Code intelligence via vim-lsp (lightweight native LSP client)
 - **Modern Language Support**: Enhanced support for Ruby, TypeScript, React, and Python
 
 ## Quick Installation
@@ -74,34 +74,23 @@ After running the script, simply start Vim and the plugins will be installed aut
 
 After installing the plugins, you need to install language servers for your development stack:
 
-```
-# Inside Vim, run these commands one at a time:
-:CocInstall coc-solargraph
-:CocInstall coc-tsserver
-:CocInstall coc-pyright
-:CocInstall coc-eslint
-:CocInstall coc-prettier
-```
-
-These extensions provide language support for:
-- **coc-solargraph**: Ruby
-- **coc-tsserver**: JavaScript and TypeScript
-- **coc-pyright**: Python
-- **coc-eslint**: Linting for JavaScript/TypeScript
-- **coc-prettier**: Code formatting
-
-You may need to install some language servers on your system:
-
 ```bash
 # For Ruby
 gem install solargraph
 
 # For Python
-pip install pylint
+pip install 'python-language-server[all]'
 
 # For JavaScript/TypeScript
-npm install -g typescript typescript-language-server eslint prettier
+npm install -g typescript typescript-language-server
 ```
+
+These language servers provide support for:
+- **solargraph**: Ruby
+- **pyls**: Python
+- **typescript-language-server**: JavaScript and TypeScript
+
+The vim-lsp plugin will automatically detect and use these language servers when you open files of the corresponding types.
 
 ## Verifying Your Installation
 
@@ -134,14 +123,16 @@ Leader key is mapped to `,` (comma)
 - `,tf` - First tab
 - `,tl` - Last tab
 
-### Code Intelligence (CoC.nvim)
+### Code Intelligence (vim-lsp)
 - `gd` - Go to definition
 - `gy` - Go to type definition
 - `gi` - Go to implementation 
 - `gr` - Find references
 - `K` - Show documentation
 - `,rn` - Rename symbol
-- `,qf` - Quick fix current problem
+- `,qf` - Code action
+- `]g` - Next diagnostic
+- `[g` - Previous diagnostic
 
 ### Code Formatting
 - `,pj` - Format JSON
@@ -161,8 +152,7 @@ To update all plugins, run this command in Vim:
 - Vim 8.0+ or Neovim
 - Git
 - curl
-- Node.js (for CoC.nvim)
-- For best experience: a terminal with true color support
+- Language servers for your development stack
 
 ## macOS Specific Setup
 
