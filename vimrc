@@ -54,8 +54,6 @@ Plug 'vim-airline/vim-airline'              " Status line enhancement
 Plug 'vim-airline/vim-airline-themes'       " Themes for airline
 
 " Programming utilities
-Plug 'vim-scripts/L9'                       " Utility functions
-" Plug 'itchyny/vim-jquery'                   " jQuery syntax (maintained)
 Plug 'vim-scripts/dbext.vim'                " Database tool
 Plug 'jlanzarotta/bufexplorer'              " Buffer explorer (maintained version)
 Plug 'motus/pig.vim'                        " Pig Latin syntax (maintained)
@@ -85,9 +83,6 @@ Plug 'tpope/vim-endwise'                    " Auto-add end to Ruby blocks
 " Python
 Plug 'vim-python/python-syntax'             " Enhanced Python syntax
 Plug 'Vimjas/vim-python-pep8-indent'        " PEP8 indentation
-
-" Project-wide search/replace
-Plug 'wincent/ferret'                       " Multi-file search/replace
 
 " Advanced Git
 Plug 'tpope/vim-rhubarb'                    " GitHub integration
@@ -124,9 +119,6 @@ set scrolloff=3                   " Show 3 lines of context around the cursor.
 
 set title                         " Set the terminal's title
 
-"mark syntax errors with :signs
-let g:syntastic_enable_signs=1
-
 set visualbell                    " No beeping.
 
 set nobackup                      " Don't make a backup before overwriting a file.
@@ -136,24 +128,9 @@ set directory=$HOME/.vim/tmp//,.  " Keep swap files in one location
 " UNCOMMENT TO USE
 set tabstop=2                    " Global tab width.
 set shiftwidth=2                 " And again, related.
-"set expandtab                    " Use spaces instead of tabs
+set expandtab                    " Use spaces instead of tabs (uncommented as per action plan)
 
 set laststatus=2                  " Show the status line all the time
-" Useful status information at bottom of screen
-" Original statusline (commented out in case you want to revert)
-" set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{exists('*fugitive#statusline')?fugitive#statusline():''}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l/%L,%c-%v\ %)%P
-
-" Simplified statusline with basic ASCII characters
-set statusline=
-set statusline+=[%n]                                " Buffer number
-set statusline+=\ %f                                " Filename
-set statusline+=\ %h%w%m%r                          " Flags (help, preview, modified, readonly)
-set statusline+=%y                                  " Filetype
-set statusline+=\ %{exists('*fugitive#statusline')?fugitive#statusline():''}  " Git status
-set statusline+=%=                                  " Switch to right side
-set statusline+=Line:\ %l/%L                        " Current line/total lines
-set statusline+=\ Col:\ %c                          " Current column
-set statusline+=\ \|\ %P                            " Percentage through file
 
 set history=1000
 set autoread
@@ -190,21 +167,19 @@ let mapleader = ","
 
 " Tab mappings.
 "map <leader>tt :tabnew<cr>
-map <leader>te :tabedit
-map <leader>tc :tabclose<cr>
-map <leader>to :tabonly<cr>
-map <leader>tn :tabnext<cr>
-map <leader>tp :tabprevious<cr>
-map <leader>tf :tabfirst<cr>
-map <leader>tl :tablast<cr>
-map <leader>tm :tabmove
+map <leader>te :tabedit<CR>
+map <leader>tc :tabclose<CR>
+map <leader>to :tabonly<CR>
+map <leader>tn :tabnext<CR>
+map <leader>tp :tabprevious<CR>
+map <leader>tf :tabfirst<CR>
+map <leader>tl :tablast<CR>
+map <leader>tm :tabmove<CR>
 "imap <Tab> <C-N>
 "imap <S-Tab> <C-P>
 "vmap <Tab> >gv
 "vmap <S-Tab> <gv
 "nmap <S-Tab> <C-W><C-W>
-" Uncomment to use Jamis Buck's file opening plugin
-"map <Leader>t :FuzzyFinderTextMate<Enter>
 
 " Controversial...swap colon and semicolon for easier commands
 "nnoremap ; :
@@ -223,13 +198,13 @@ autocmd BufNewFile,BufRead *_spec.rb compiler rspec
 
 "NERDTree settings
 let g:NERDTreeWinPos = "left"
-map <leader>nf :NERDTreeFind<cr>
-map <F2> :NERDTreeToggle<CR>
+nnoremap <leader>nf :NERDTreeFind<CR>
+nnoremap <F2> :NERDTreeToggle<CR>
 "map <Leader>n :NERDTreeToggle<CR>
 " don't open nerdtree on directory opens
 let NERDTreeHijackNetrw=0 
 
-nmap <silent> <leader>n :silent :nohlsearch<CR>
+nnoremap <silent> <leader>n :silent :nohlsearch<CR>
 
 " dbext settings
 let g:dbext_default_type   = 'MYSQL'
@@ -274,39 +249,38 @@ cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 ":put! a           paste register a into new window
 "nmap <F3> :redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR><CR>
 " Turn off line numbers, do g//, restore previous state.
-nmap <F3> :let @b=&number<CR>:set nonumber<CR>:redir @a<CR>:g//<CR>:redir END<CR>:let &number=@b<CR>:new<CR>:put! a<CR><CR>
+nnoremap <F3> :let @b=&number<CR>:set nonumber<CR>:redir @a<CR>:g//<CR>:redir END<CR>:let &number=@b<CR>:new<CR>:put! a<CR><CR>
 
 " FZF mappings (replaces FuzzyFinder)
-nmap <leader>f :Files<CR>  
-nmap <leader>o :GFiles<CR>
-nmap <leader>d :Files %:h<CR>
-nmap <leader>b :Buffers<CR>
-nmap <leader>t :Tags<CR>
-noremap <leader>j :Lines<CR>
+nnoremap <leader>f :Files<CR>  
+nnoremap <leader>o :GFiles<CR>
+nnoremap <leader>d :Files %:h<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>t :Tags<CR>
+nnoremap <leader>j :Lines<CR>
 
 " pretty print format json
 "Run this command in shell 
 "sudo cpan JSON::XS
-map <leader>pj2  <Esc>:%!json_xs -f json -t json-pretty<CR>:set filetype=json<CR>
-map <leader>pj3  <Esc>:%!jq '.'<CR>:set filetype=json<CR>
-map <Leader>pj4444 <Esc>:%!python2 -m json.tool<CR>:set filetype=json<CR>
+nnoremap <leader>pj2  <Esc>:%!json_xs -f json -t json-pretty<CR>:set filetype=json<CR>
+nnoremap <leader>pj3  <Esc>:%!jq '.'<CR>:set filetype=json<CR>
+nnoremap <Leader>pj4444 <Esc>:%!python2 -m json.tool<CR>:set filetype=json<CR>
 " alternative format JSON
-map <Leader>pj <Esc>:%!ruby -rjson -e 'puts JSON.pretty_generate(JSON.load($<))'<CR>:set filetype=json<CR>
-map <Leader>py <Esc>:%!ruby -ryaml -e 'puts YAML.load($<).to_yaml'<CR>:set filetype=yaml<CR>
+nnoremap <Leader>pj <Esc>:%!ruby -rjson -e 'puts JSON.pretty_generate(JSON.load($<))'<CR>:set filetype=json<CR>
+nnoremap <Leader>py <Esc>:%!ruby -ryaml -e 'puts YAML.load($<).to_yaml'<CR>:set filetype=yaml<CR>
 
 "pretty format xml
-map <Leader>px <Esc>:%!ruby -W0 ~/.vim/xmlformat.rb<CR>:set filetype=xml<CR>
-map <Leader>px2 <Esc>:%!~/.vim/xmlformat.pl<CR>:set filetype=xml<CR> 
+nnoremap <Leader>px <Esc>:%!ruby -W0 ~/.vim/xmlformat.rb<CR>:set filetype=xml<CR>
+nnoremap <Leader>px2 <Esc>:%!~/.vim/xmlformat.pl<CR>:set filetype=xml<CR> 
 "prety html
-map <Leader>ph <Esc>:%!tidy -q -i --wrap 120 --show-errors 0<CR>:set filetype=html<CR>
+nnoremap <Leader>ph <Esc>:%!tidy -q -i --wrap 120 --show-errors 0<CR>:set filetype=html<CR>
 "map <Leader>ph <Esc>:%!tidy -q -i --show-errors 0 2>/dev/null<CR>:set filetype=html<CR>
 " disable json conceal quotes
 let g:vim_json_syntax_conceal = 0
 
 " operations such as yy, D, and P work with the OS clipboard
 set clipboard=unnamed
-"command abbreviations
-:ca W w
+
 
 "highlight current line
 :set cursorline
@@ -327,11 +301,11 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " vim-test configuration
-nmap <silent> <leader>tn :TestNearest<CR>
-nmap <silent> <leader>tf :TestFile<CR>
-nmap <silent> <leader>ts :TestSuite<CR>
-nmap <silent> <leader>tl :TestLast<CR>
-nmap <silent> <leader>tg :TestVisit<CR>
+nnoremap <silent> <leader>tn :TestNearest<CR>
+nnoremap <silent> <leader>tf :TestFile<CR>
+nnoremap <silent> <leader>ts :TestSuite<CR>
+nnoremap <silent> <leader>tl :TestLast<CR>
+nnoremap <silent> <leader>tg :TestVisit<CR>
 
 " UltiSnips configuration
 let g:UltiSnipsExpandTrigger="<tab>"
