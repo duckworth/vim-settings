@@ -1,0 +1,40 @@
+{
+  "suggest.noselect": false,
+  "suggest.enablePreselect": false,
+  "suggest.triggerAfterInsertEnter": true,
+  "suggest.timeout": 500,
+  "suggest.acceptSuggestionOnEnter": "smart",
+  "suggest.snippetIndicator": " ►",
+
+  "diagnostic.errorSign": "✗",
+  "diagnostic.warningSign": "⚠",
+  "diagnostic.infoSign": "ℹ",
+  "diagnostic.hintSign": "➤",
+  
+  "coc.preferences.formatOnSaveFiletypes": [
+    "ruby", 
+    "python", 
+    "javascript", 
+    "typescript", 
+    "typescriptreact", 
+    "json", 
+    "javascriptreact", 
+    "css", 
+    "markdown"
+  ],
+
+  "solargraph.diagnostics": true,
+  "solargraph.formatting": true,
+  "solargraph.autoformat": true,
+  
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  
+  "typescript.format.enabled": true,
+  "javascript.format.enabled": true,
+  
+  "prettier.singleQuote": true,
+  "prettier.printWidth": 100,
+  "prettier.tabWidth": 2,
+  "prettier.semi": true
+} 
